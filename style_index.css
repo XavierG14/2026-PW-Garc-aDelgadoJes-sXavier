@@ -8,15 +8,43 @@ body {
     color: black;
     background-color:blanchedalmond;
 }
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem, 1rem;
+}
+
+.content {
+    width: 100%;
+    max-width: 900px;
+}
+
+.titleContent {
+    margin-bottom: 1.5rem;
+}
+
+.titleContent h1 {
+    margin: 0, 0, 0.5rem, 0;
+    font-size: 1.6rem;
+    color: #55483c;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fffaf0;
+}
 
 table, th, td {
-  border: 1px solid darkblue;
-  padding: 5px;
+    border: 1px solid darkblue;
+    padding: 0.6rem, 0.8rem;
 }
 
 th {
+    background-color: #e7d9c2;
     font-weight: bold;
     font-size: large;
+    text-align: left;
 }
 
 td{
