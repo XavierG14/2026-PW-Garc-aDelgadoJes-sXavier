@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+    background-color:blanchedalmond;
+}
+
+table, th, td {
+  border: 1px solid darkblue;
+  padding: 5px;
+}
+
+th {
+    font-weight: bold;
+    font-size: large;
+}
+
+td{
+    font-size: medium;
+    font-family: Arial, Helvetica, sans-serif;
+}
