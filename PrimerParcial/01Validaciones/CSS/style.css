@@ -135,3 +135,15 @@ footer {
     font-size: 0.8rem;
     margin-top: 0.3rem;
 }
+
+.mensaje-exito {
+    display: none;
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #22c55e;
+    border-radius: 0.4rem;
+    padding: 0.7rem, 1rem;
+    margin-top: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
