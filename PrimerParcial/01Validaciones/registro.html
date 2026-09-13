@@ -33,5 +33,42 @@
     </form>
   </main>
 
+  <script>
+    const form = document.getElementById("formRegistro");
+    const mensajeExito = document.getElementById("mensajeExitoso");
+    const inputs = form.querySelectorAll("input");
+
+    inputs.forEach((input) => {
+      input.addEventListener("blur", () => {
+        input.classList.add("abierto");
+      });
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      inputs.forEach((input) => {
+        input.addEventListener("blur", () => {
+          input.classList.add("tocado");
+        });
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        inputs.forEach((input) => input.classList.add("tocado"));
+
+        if(form.checkVisibility()) {
+          form.classList.add("registro-exitoso");
+          mensajeExito.classList.add("mostrar");
+          form.reset();
+          inputs.forEach((input) => input.classList-remove("abierto"));
+        } else {
+          form.classList.remove("registro-exitoso");
+          mensajeExito.classList.remove("mostrar");
+        }
+      })
+    })
+  </script>
 </body>
 </html>

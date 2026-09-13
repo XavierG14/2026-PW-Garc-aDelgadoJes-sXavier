@@ -129,11 +129,20 @@ footer {
     transform: translateY(0);
 }
 
+.campo input.tocado:invalid {
+    border-color: #dc2626;
+    background-color: #ffff;
+}
+
 .mensaje-error {
     display: none;
     color: #dc2626;
     font-size: 0.8rem;
     margin-top: 0.3rem;
+}
+
+.campo input.abierto:invalid ~ .mensaje-error {
+    display: block;
 }
 
 .mensaje-exito {
@@ -146,4 +155,12 @@ footer {
     margin-top: 1rem;
     font-weight: bold;
     text-align: center;
+}
+
+.mensaje-exito.mostrar {
+    display: block;
+}
+
+.formulario-registro.registro-exitoso {
+    border-color: #22c55e;
 }
