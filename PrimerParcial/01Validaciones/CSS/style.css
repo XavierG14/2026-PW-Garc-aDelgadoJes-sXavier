@@ -121,3 +121,10 @@ footer {
     cursor: pointer;
 }
 
+.formulario-registro button:hover {
+    background-color: #3b82f6;
+}
+
+.formulario-registro button:active {
+    transform: translateY(0);
+}
