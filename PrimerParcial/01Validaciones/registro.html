@@ -11,12 +11,22 @@
   </header>
 
   <main>
-    <form class="formulario-registro">
+    <form class="formulario-registro" id="formRegistro" novalidate>
+
       <h1>Registrar asistencia</h1>
-      <label for="nombre">Nombre: </label>
-      <input type="text" id="nombre" name="nombre" required>
-      <label for="boleta">Boleta: </label>
-      <input type="text" id="boleta" name="boleta" required>
+      
+      <div class="campo">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" name="nombre" required minlength="3">
+        <span class="mensaje-error">Ingresa un nombre válido (mínimo 3 letras)</span>
+      </div>
+      
+      <div class="campo">
+        <label for="boleta">Boleta: </label>
+        <input type="text" id="boleta" name="boleta" required pattern="[0-9]{10}">
+        <span class="mensaje-error">La boleta debe tener 10 dígitos numéricos</span>
+      </div>
+      
       <button type="submit">Registrar</button>
     </form>
   </main>
