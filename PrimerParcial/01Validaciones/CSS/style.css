@@ -128,3 +128,10 @@ footer {
 .formulario-registro button:active {
     transform: translateY(0);
 }
+
+.mensaje-error {
+    display: none;
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
