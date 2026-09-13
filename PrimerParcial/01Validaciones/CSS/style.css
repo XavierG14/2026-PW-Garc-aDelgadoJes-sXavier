@@ -110,4 +110,14 @@ footer {
     letter-spacing: 1px;
 }
 
+.formulario-registro button {
+    background-color: #1f2937;
+    color: #ffff;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.7rem, 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
 
