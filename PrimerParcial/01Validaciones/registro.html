@@ -18,47 +18,29 @@
       <div class="campo">
         <label for="nombre">Nombre: </label>
         <input type="text" id="nombre" name="nombre" required minlength="3">
-        <span class="mensaje-error">Ingresa un nombre válido (mínimo 3 letras)</span>
+        <span class="mensaje-error"
+        id="error-nombre">Ingresa un nombre válido (mínimo 3 letras)</span>
       </div>
       
       <div class="campo">
         <label for="boleta">Boleta: </label>
         <input type="text" id="boleta" name="boleta" required pattern="[0-9]{10}">
-        <span class="mensaje-error">La boleta debe tener 10 dígitos numéricos</span>
+        <span class="mensaje-error" id="error-boleta">La boleta debe tener 10 dígitos numéricos</span>
       </div>
-      
+
+      <div>
+        <label for="fecha">Fecha de Registro (DD/MM/AAAA): </label>
+        <input type="text" id="fecha" name="fecha" placeholder="DD/MM/AAAA" required>
+        <span class="mensaje-error" id="error-fecha"></span>
+      </div>
+
+
       <button type="submit">Registrar</button>
 
       <p class="mensaje-exito" id="mensajeExito">Registro exitoso :)</p>
     </form>
   </main>
 
-  <script>
-    const form = document.getElementById("formRegistro");
-    const mensajeExito = document.getElementById("mensajeExito");
-    const inputs = form.querySelectorAll("input");
-
-    inputs.forEach((input) => {
-      input.addEventListener("blur", () => {
-        input.classList.add("abierto");
-      });
-    });
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      inputs.forEach((input) => input.classList.add("abierto"));
-
-        if(form.checkVisibility()) {
-          form.classList.add("registro-exitoso");
-          mensajeExito.classList.add("mostrar");
-          form.reset();
-          inputs.forEach((input) => input.classList.remove("abierto"));
-        } else {
-          form.classList.remove("registro-exitoso");
-          mensajeExito.classList.remove("mostrar");
-        }
-    });
-  </script>
+  <script src="./JS/validaciones.js"></script>
 </body>
 </html>
