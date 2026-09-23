@@ -40,21 +40,22 @@ const formArreglos = document.getElementById('form-arreglos');
 const resultadoArreglos = document.getElementById('resultado-arreglo');
 const selectOperacionArreglo = document.getElementById('operacion-arreglo');
 
-formArreglos.addEventListener('submit', (evento) =>{
-    evento.preventDefault();
-    const operacion = selectOperacionArreglo.value;
+formArreglos.addEventListener('submit', (evento) => {
+  evento.preventDefault();
+  const operacion = selectOperacionArreglo.value;
 
-    let resultado;
+  let resultado = '';
 
-    switch (operacion) {
+  switch (operacion) {
     case 'forEach':
-      resultado = talleres
-        .map((t) => `- ${t.nombre} (${t.inscritos}/${t.cupo})`)
-        .join('\n');
+      let lista = [];
+      talleres.forEach((t) => {
+        lista.push(`- ${t.nombre} (${t.inscritos}/${t.cupo})`);
+      });
+      resultado = lista.join('\n');
       break;
 
     case 'map':
-      // Extrae únicamente los nombres de los talleres
       const nombres = talleres.map((t) => t.nombre);
       resultado = 'Lista de nombres de los talleres:\n' + nombres.map((n) => `- ${n}`).join('\n');
       break;
@@ -69,7 +70,7 @@ formArreglos.addEventListener('submit', (evento) =>{
       }
       break;
 
-      case 'find':
+    case 'find':
       // Solicita al usuario el nombre del instructor a buscar
       const busqueda = prompt('Ingresa el nombre del instructor a buscar (ej. Ing. María López):');
       if (busqueda) {
@@ -77,9 +78,11 @@ formArreglos.addEventListener('submit', (evento) =>{
           t.instructor.toLowerCase().includes(busqueda.toLowerCase().trim())
         );
         if (encontrado) {
+          // Espacios agregados después de los dos puntos
           resultado = `Taller encontrado:\n- Taller: ${encontrado.nombre}\n- Instructor:${encontrado.instructor}\n- Cupo: ${encontrado.cupo}\n- Inscritos:${encontrado.inscritos}`;
         } else {
-          resultado = `No se encontró ningún taller imprevisto por "${busqueda}".`;
+          // Corrección de redacción: "impartido por"
+          resultado = `No se encontró ningún taller impartido por "${busqueda}".`;
         }
       } else {
         resultado = 'Búsqueda cancelada.';
@@ -90,6 +93,5 @@ formArreglos.addEventListener('submit', (evento) =>{
       resultado = 'Selecciona una opción válida.';
   }
 
-
-    resultadoArreglos.textContent = resultado;
+  resultadoArreglos.textContent = resultado;
 });
