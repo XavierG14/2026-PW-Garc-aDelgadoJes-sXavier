@@ -24,7 +24,7 @@ function validarCampo(campo, valor){
 //para validar el formulario debemos ocupar los principios de obtención y manipulación de los elementos del DOM
 
 if(typeof document !== 'undefined') {
-    const formulario = document.getElementById('form-registro');
+    const formulario = document.getElementById('formRegistro');
 
     formulario.addEventListener('submit', (evento) => {
         evento.preventDefault(); //Evita que el formulario se envié automaticamente
@@ -33,14 +33,23 @@ if(typeof document !== 'undefined') {
 
         for(const campo of Object.keys(patrones)){
             const input = document.getElementById(campo);
-            const errorSpan = document.getElementById('error-${campo}');
+            const errorSpan = document.getElementById(`error-${campo}`);
             const esValido = validarCampo(campo,input.value);
             input.classList.toggle('invalido', !esValido);
-            spanError.textContent = esValido ? '' : mensajes[campo];
+            if(errorSpan) {
+                errorSpan.textContent = esValido ? '' : mensajes[campo];
+                errorSpan.style.display = esValido ? 'none' : 'block';
+            } 
             if(!esValido) formularioValido = false;
         }
-        const mensajeExito = document.getElementById('mensaje-exito');
-        mensajeExito.textContent = formularioValido ? 'Registro Exitoso' : '';
-        
+        const mensajeExito = document.getElementById('mensajeExito');
+        if (mensajeExito) {
+            // Uso de la clase CSS .mostrar
+            if (formularioValido) {
+                mensajeExito.classList.add('mostrar');
+            } else {
+                mensajeExito.classList.remove('mostrar');
+            }
+        }
     });
 }
