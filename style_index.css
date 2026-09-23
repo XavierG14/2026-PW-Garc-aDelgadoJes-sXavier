@@ -4,29 +4,45 @@
 
 body {
     margin: 0;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: black;
-    background-color:blanchedalmond;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #1f2937;
+    background-color:azure;
 }
 .container {
     display: flex;
     justify-content: center;
-    padding: 2rem, 1rem;
+    padding: 1.5rem;
 }
 
 .content {
     width: 100%;
-    max-width: 900px;
+    max-width: 960px;
 }
 
 .titleContent {
+    background-color: #1f2937;
+    color: #ffff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
     margin-bottom: 1.5rem;
 }
 
 .titleContent h1 {
-    margin: 0, 0, 0.5rem, 0;
+    margin: 0 0 0.5rem 0;
     font-size: 1.6rem;
-    color: #55483c;
+}
+
+.titleContent p {
+    margin: 0;
+    color: beige;
+}
+
+.tables {
+    background-color: #ffff;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1rem;
 }
 
 table {
@@ -36,12 +52,13 @@ table {
 }
 
 table, th, td {
-    border: 1px solid darkblue;
-    padding: 0.6rem, 0.8rem;
+    border: 1px solid #d1d5db;
+    padding: 0.6rem 0.8rem;
 }
 
 th {
-    background-color: #e7d9c2;
+    background-color: #1f2937;
+    color: #ffff;
     font-weight: bold;
     font-size: large;
     text-align: left;
@@ -49,15 +66,18 @@ th {
 
 td{
     font-size: medium;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+tbody tr:hover {
+    background-color: #f3f4f6;
 }
 
 a {
     text-decoration: none;
-    color: blueviolet;
+    color: #3b82f6;
 }
 
 a:hover {
-    text-decoration: wavy;
-    color: blue;
+    text-decoration: line-through;
 }
