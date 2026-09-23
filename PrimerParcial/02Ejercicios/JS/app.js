@@ -7,33 +7,33 @@ const talleres = [
 
 
 function pintarTabla() {
-    //debe de obtener la tabla y rellenarla con los datos de talleres
+  const tbody = document.querySelector('#tabla-talleres tbody');
+  tbody.innerHTML = '';
 
-    const tbody = document.querySelector('#tabla-talleres tbody');
-    tbody.innerHTML = '';
+  talleres.forEach(function(taller) {
+    const fila = document.createElement('tr');
 
-    talleres.forEach(function(taller) {
-        const fila = document.createElement('tr');
+    const tdNombre = document.createElement('td');
+    tdNombre.textContent = taller.nombre;
+    fila.appendChild(tdNombre);
 
-        const tdNombre = document.createElement('td');
-        tdNombre.textContent = taller.nombre;
-        fila.appendChild(tdNombre);
+    const tdInstructor = document.createElement('td');
+    tdInstructor.textContent = taller.instructor;
+    fila.appendChild(tdInstructor);
 
-        const tdInstructor = document.createElement('td');
-        tdInstructor.textContent = taller.instructor;
-        fila.appendChild(tdInstructor);
+    const tdCupo = document.createElement('td');
+    tdCupo.textContent = taller.cupo;
+    fila.appendChild(tdCupo);
 
-        const tdCupo = document.createElement('td');
-        tdCupo.textContent = taller.cupo;
-        fila.appendChild(tdCupo);
+    const tdInscritos = document.createElement('td');
+    tdInscritos.textContent = taller.inscritos;
+    fila.appendChild(tdInscritos);
 
-        const tdInscritos = document.createElement('td');
-        tdInscritos.textContent = taller.inscritos;
-        fila.appendChild(tdInscritos);
-
-        tbody.appendChild(fila);
-    });
+    tbody.appendChild(fila);
+  });
 }
+
+pintarTabla();
 
 
 const formArreglos = document.getElementById('form-arreglos');
@@ -46,11 +46,49 @@ formArreglos.addEventListener('submit', (evento) =>{
 
     let resultado;
 
-    switch(operacion){
-        case 'forEach':
-            resultado = talleres.map((t) => `- ${t.nombre} (${t.inscritos}/${t.cupo})`).join('\n');
-            break;
-    }
+    switch (operacion) {
+    case 'forEach':
+      resultado = talleres
+        .map((t) => `- \({t.nombre} (\){t.inscritos}/${t.cupo})`)
+        .join('\n');
+      break;
+
+    case 'map':
+      // Extrae únicamente los nombres de los talleres
+      const nombres = talleres.map((t) => t.nombre);
+      resultado = 'Lista de nombres de los talleres:\n' + nombres.map((n) => `- ${n}`).join('\n');
+      break;
+
+    case 'filter':
+      // Filtra solo los talleres donde inscritos sea igual al cupo (llenos)
+      const llenos = talleres.filter((t) => t.inscritos >= t.cupo);
+      if (llenos.length > 0) {
+        resultado = 'Talleres con cupo lleno:\n' + llenos.map((t) => `- \({t.nombre} (\){t.inscritos}/${t.cupo})`).join('\n');
+      } else {
+        resultado = 'No hay talleres con cupo lleno.';
+      }
+      break;
+      
+      case 'find':
+      // Solicita al usuario el nombre del instructor a buscar
+      const busqueda = prompt('Ingresa el nombre del instructor a buscar (ej. Ing. María López):');
+      if (busqueda) {
+        const encontrado = talleres.find((t) =>
+          t.instructor.toLowerCase().includes(busqueda.toLowerCase().trim())
+        );
+        if (encontrado) {
+          resultado = `Taller encontrado:\n- Taller: \({encontrado.nombre}\n- Instructor:\){encontrado.instructor}\n- Cupo: \({encontrado.cupo}\n- Inscritos:\){encontrado.inscritos}`;
+        } else {
+          resultado = `No se encontró ningún taller imprevisto por "${busqueda}".`;
+        }
+      } else {
+        resultado = 'Búsqueda cancelada.';
+      }
+      break;
+
+    default:
+      resultado = 'Selecciona una opción válida.';
+  }
 
 
     resultadoArreglos.textContent = resultado;

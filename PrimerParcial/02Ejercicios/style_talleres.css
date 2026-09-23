@@ -71,3 +71,16 @@ tr:nth-child(even) {
 .btn:hover {
     background-color: #004494;
 }
+
+.resultado {
+    display: block;
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #e9ecef;
+    border-left: 4px solid #0056b3;
+    border-radius: 4px;
+    white-space: pre-wrap; /* Permite que los \n de JS hagan salto de línea */
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: #212529;
+}
