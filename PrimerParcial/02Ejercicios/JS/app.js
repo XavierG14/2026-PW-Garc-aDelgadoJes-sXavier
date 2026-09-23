@@ -49,7 +49,7 @@ formArreglos.addEventListener('submit', (evento) =>{
     switch (operacion) {
     case 'forEach':
       resultado = talleres
-        .map((t) => `- \({t.nombre} (\){t.inscritos}/${t.cupo})`)
+        .map((t) => `- ${t.nombre} (${t.inscritos}/${t.cupo})`)
         .join('\n');
       break;
 
@@ -63,12 +63,12 @@ formArreglos.addEventListener('submit', (evento) =>{
       // Filtra solo los talleres donde inscritos sea igual al cupo (llenos)
       const llenos = talleres.filter((t) => t.inscritos >= t.cupo);
       if (llenos.length > 0) {
-        resultado = 'Talleres con cupo lleno:\n' + llenos.map((t) => `- \({t.nombre} (\){t.inscritos}/${t.cupo})`).join('\n');
+        resultado = 'Talleres con cupo lleno:\n' + llenos.map((t) => `- ${t.nombre} (${t.inscritos}/${t.cupo})`).join('\n');
       } else {
         resultado = 'No hay talleres con cupo lleno.';
       }
       break;
-      
+
       case 'find':
       // Solicita al usuario el nombre del instructor a buscar
       const busqueda = prompt('Ingresa el nombre del instructor a buscar (ej. Ing. María López):');
@@ -77,7 +77,7 @@ formArreglos.addEventListener('submit', (evento) =>{
           t.instructor.toLowerCase().includes(busqueda.toLowerCase().trim())
         );
         if (encontrado) {
-          resultado = `Taller encontrado:\n- Taller: \({encontrado.nombre}\n- Instructor:\){encontrado.instructor}\n- Cupo: \({encontrado.cupo}\n- Inscritos:\){encontrado.inscritos}`;
+          resultado = `Taller encontrado:\n- Taller: ${encontrado.nombre}\n- Instructor:${encontrado.instructor}\n- Cupo: ${encontrado.cupo}\n- Inscritos:${encontrado.inscritos}`;
         } else {
           resultado = `No se encontró ningún taller imprevisto por "${busqueda}".`;
         }
