@@ -20,6 +20,23 @@ header a {
     color: beige;
 }
 
+.btn-volver {
+    display: inline-block;
+    background-color: #374151;
+    color: beige;
+    text-decoration: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 0.4rem;
+    font-size: 0.9rem;
+    border: 1px solid #4b5563;
+}
+
+.btn-volver:hover {
+    background-color: #3b82f6;
+    color: #ffff;
+    border-color: #3b82f6;
+}
+
 main {
     max-width: 960px;
     margin: 0 auto;
@@ -108,6 +125,19 @@ footer {
     font-size: 1rem;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 1px;
+}
+
+#fecha {
+    padding: 0.6rem 0.7rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+}
+
+#fecha::placeholder {
+    color: #9ca3af;
 }
 
 .formulario-registro button {
