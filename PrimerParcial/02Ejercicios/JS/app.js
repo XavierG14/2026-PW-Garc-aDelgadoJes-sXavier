@@ -115,14 +115,18 @@ formObjeto.addEventListener('submit', (evento) => {
 
   switch(operacion){
     case 'keys':
+      resultado = JSON.stringify(Object.keys(taller));
       break;
     case 'values':
+
       break;
     case 'entries':
+      //profe
       break;
     case 'stringfy':
       break;
     case 'roundtrip':
+      //profe
       break;
   }
 
