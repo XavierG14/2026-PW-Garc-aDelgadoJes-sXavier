@@ -128,6 +128,16 @@ formObjeto.addEventListener('submit', (evento) => {
       break;
     case 'roundtrip':
       //profe
+      const textoJson = JSON.stringify(taller, null, 2);
+      const objetoDeVuelta = JSON.parse(textoJson);
+
+      resultado = [
+        '',
+        textoJson,
+        '',
+        `tipo: ${typeof objetoDeVuelta}`,
+        objetoDeVuelta.nombre
+      ].join('\n');
       break;
   }
 
