@@ -122,6 +122,7 @@ formObjeto.addEventListener('submit', (evento) => {
       break;
     case 'entries':
       //profe
+      resultado = Object.entries(taller).map(([campo,valor]) => `${campo}: ${valor}`).join('\n');
       break;
     case 'stringfy':
       break;
