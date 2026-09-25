@@ -95,3 +95,36 @@ formArreglos.addEventListener('submit', (evento) => {
 
   resultadoArreglos.textContent = resultado;
 });
+
+//segunda parte
+
+const formObjeto = document.getElementById('form-objeto');
+const resultadoObjeto = document.getElementById('resultado-objeto');
+
+formObjeto.addEventListener('submit', (evento) => {
+  const taller = {
+    nombre: document.getElementById('obj-nombre').value,
+    instructor: document.getElementById('obj-instructor').value,
+    cupo: Number(document.getElementById('obj-cupo').value),
+    inscritos: Number(document.getElementById('obj-inscritos').value)
+  };
+
+  const operacion = document.getElementById('operacion-objeto').value;
+
+  let resultado;
+
+  switch(operacion){
+    case 'keys':
+      break;
+    case 'values':
+      break;
+    case 'entries':
+      break;
+    case 'stringfy':
+      break;
+    case 'roundtrip':
+      break;
+  }
+
+  resultadoObjeto.textContent = resultado;
+})
