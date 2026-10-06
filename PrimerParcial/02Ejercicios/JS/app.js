@@ -144,3 +144,5 @@ formObjeto.addEventListener('submit', (evento) => {
 
   resultadoObjeto.textContent = resultado;
 })
+
+//tercera parte
