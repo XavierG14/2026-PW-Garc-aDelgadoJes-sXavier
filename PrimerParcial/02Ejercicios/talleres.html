@@ -88,6 +88,23 @@
         <video autoplay muted loop controls width="600">
             <source src="./video/laCalabaza.mp4" type="video/mp4">
         </video>
+
+        <section class="ejercicio" aria-labelledby="titulo-texto">
+
+            <h2 id="titulo-texto">3.- String y fechas</h2>
+            <p>La fecha usa el mismo formato <strong>DD/MM/AAAA</strong> valido con regex</p>
+            <form id="form-texto" class="formulario">
+                <div class="campo">
+                    <label for="nombre-texto">Nombre (Con espacios de sobra a proposito)</label>
+                    <input type="text" id="nombre-texto" name="nombre-texto" value=" María López ">
+                </div>
+                <div class="campo">
+                    <label for="cupo-texto">Cupo (para el template)</label>
+                    <input type="number" id="cupo-texto" name="cupo-texto" value="25" min="0">
+                </div>
+            </form>
+
+        </section>
     </main>
 
     <script src="./JS/app.js" ></script>
