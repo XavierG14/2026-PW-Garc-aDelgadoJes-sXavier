@@ -25,3 +25,16 @@ const cupo = 25;
 console.log(`${nombre} se inscribio en un taller con cupo para ${cupo} personas`);
 
 //TODO: date - 
+console.log('Ejemplo de Date');
+function fechaDesdeTexto(textoFecha) {
+    const [dia, mes, anio] = textoFecha.split('/').map(Number);
+    return new Date(anio, mes - 1, dia);
+}
+
+//TODO: usa fechaDesdeTexto ('05/09/2026')
+const fechasAsistencia = fechaDesdeTexto('05/09/2026');
+console.log('Fecha construida: ', fechasAsistencia.toISOString());
+console.log('Dia de la semana (0=domingo): ', fechasAsistencia.getDay());
+const hoy = new Date();
+const diaDeDiferencia = Math.round((fechasAsistencia - hoy) / (1000*60*60*24));
+console.log(`Faltan ${diaDeDiferencia} dia(s) para la fecha de asistencia al taller (puede ser negativo)`);
