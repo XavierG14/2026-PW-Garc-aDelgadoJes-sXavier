@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejecicios con Node</title>
+    <link rel="stylesheet" href="../02Ejercicios/style_talleres.css">
+</head>
+<body>
+    <header>
+        <h1>Ejercicios con node</h1>
+    </header>
+    <main>
+        <section class="ejercicio" >
+            <h2 id="titulo-arreglos"> Arreglos del codigo <code>01-arreglos.js</code> </h2>
+            <p>Datos de prueba con JS</p>
+            <div class="tabla-scroll" >
+                <table id="tabla-talleres">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Instructor</th>
+                            <th>Cupo</th>
+                            <th>Inscritos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <form id="form-arreglos" class="formulario" >
+                <div class="campos" >
+                    <label for="operacion-arreglo" name="operacion-arreglo">Operación</label>
+                    <select name="operacion-arreglo" id="operacion-arreglo">
+                        <option value="forEach">ForEach - Lista Simple</option>
+                        <option value="map">map - Copia solo Nombres</option>
+                        <option value="filter">filter - Filtrar Talleres con cupo lleno</option>
+                        <option value="find">find - Buscar por el nombre del instructor</option>
+                    </select>
+                </div>
+
+                <button type="submit" >Ejecutar</button>
+
+            </form>
+
+            <output class="resultado" id="resultado-arreglo" for="form-arreglo" ></output>
+        </section>
+
+        <section class="ejercicio" aria-labelledby="titulo-objeto">
+            <h2 class="titulo-objeto">Manejo de Objetos y JSON's</h2>
+            <p>Edita el taller y elige que operación deseas aplicar</p>
+
+            <form id="form-objeto" class="formulario">
+                <div class="campo">
+                    <label for="obj-nombre">Nombre</label>
+                    <input type="text" name="obj-nombre" id="obj-nombre" value="Introducción a Python">
+                </div>
+                <div class="campo">
+                    <label for="obj-instructor">Instructor</label>
+                    <input type="text" name="obj-instructor" id="obj-instructor" value="Ing. María López">
+                </div>
+                <div class="campo">
+                    <label for="obj-cupo">Cupo</label>
+                    <input type="number" name="obj-cupo" id="obj-cupo" value="25" min="0">
+                </div>
+                <div class="campo">
+                    <label for="obj-inscritos">Inscritos</label>
+                    <input type="number" name="obj-inscritos" id="obj-inscritos" value="25" min="0">
+                </div>
+
+                <div class="campo">
+                    <label for="operacion-objeto">Tipo de Operación</label>
+                    <select name="operacion-objeto" id="operacion-objeto">
+                        <option value="keys">Object.keys</option>
+                        <option value="values">Object.values</option>
+                        <option value="entries">Object.entries</option>
+                        <option value="stringify">JSON a Cadena</option>
+                        <option value="roundtrip">Ida y Vuelta (JSON a Cadena)</option>
+                    </select>
+                </div>
+                <button type="submit">Ejecutar Opción</button>
+            </form>
+            <output class="resultado" id="resultado.objeto" for="form-objeto"></output>
+        </section>
+
+        <video autoplay muted loop controls width="600">
+            <source src="./video/laCalabaza.mp4" type="video/mp4">
+        </video>
+
+        <section class="ejercicio" aria-labelledby="titulo-texto">
+
+            <h2 id="titulo-texto">3.- String y fechas</h2>
+            <p>La fecha usa el mismo formato <strong>DD/MM/AAAA</strong> valido con regex</p>
+            <form id="form-texto" class="formulario">
+                <div class="campo">
+                    <label for="nombre-texto">Nombre (Con espacios de sobra a proposito)</label>
+                    <input type="text" id="nombre-texto" name="nombre-texto" value=" María López ">
+                </div>
+                <div class="campo">
+                    <label for="cupo-texto">Cupo (para el template)</label>
+                    <input type="number" id="cupo-texto" name="cupo-texto" value="25" min="0">
+                </div>
+                <div class="campo">
+                    <label for="fecha-texto">Fecha de asistencia (DD/MM/AAAA)</label>
+                    <input type="text" id="fecha-texto" name="fecha-texto" value="05/09/2026" placeholder="05/09/2026">
+                    <span class="error" id="error-fecha"></span>
+                </div>
+                <button type="submit">Ejecutar</button>
+            </form>
+            <output class="resultado" id="resultado-texto" for="form-texto"></output>
+
+        </section>
+    </main>
+
+    <script src="./JS/app.js" ></script>
+    
+</body>
+</html>

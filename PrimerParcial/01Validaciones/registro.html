@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Asistencia - CECyT 9</title>
+  <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body>
+  <header>
+    <a class="btn-volver" href="./detalle.html">Volver al taller</a>
+  </header>
+
+  <main>
+    <form class="formulario-registro" id="formRegistro" novalidate>
+
+      <h1>Registrar asistencia</h1>
+      
+      <div class="campo">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" name="nombre" required minlength="3">
+        <span class="mensaje-error"
+        id="error-nombre">Ingresa un nombre válido (mínimo 3 letras)</span>
+      </div>
+      
+      <div class="campo">
+        <label for="boleta">Boleta: </label>
+        <input type="text" id="boleta" name="boleta" required pattern="[0-9]{10}">
+        <span class="mensaje-error" id="error-boleta">La boleta debe tener 10 dígitos numéricos</span>
+      </div>
+
+      <div class="campo">
+        <label for="fecha">Fecha de Registro (DD/MM/AAAA): </label>
+        <input type="text" id="fecha" name="fecha" placeholder="DD/MM/AAAA" required>
+        <span class="mensaje-error" id="error-fecha"></span>
+      </div>
+
+
+      <button type="submit">Registrar</button>
+
+      <p class="mensaje-exito" id="mensajeExito">Registro exitoso :)</p>
+    </form>
+  </main>
+
+  <script src="./JS/validaciones.js"></script>
+</body>
+</html>
