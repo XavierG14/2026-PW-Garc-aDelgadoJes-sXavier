@@ -2,14 +2,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { pedirJSON } from '../../lib/api';
+import { buscarUsuarioPorBoleta, crearAsistencia, crearUsuario } from '../../lib/servicios';
 import { formatearFecha, ocultarBoleta } from '../../lib/formato';
-import { validarBoleta } from '../../lib/validaciones';
+import {
+  NOMBRE_MAX,
+  validarBoleta,
+  validarContrasena,
+  validarCorreo,
+  validarNombre,
+} from '../../lib/validaciones';
 import estilos from '../../styles/Talleres.module.css';
-
-// /talleres/[id] — detalle de un taller.
-// PASO 4: datos del taller, barra de lugares y lista de inscritos
-//         (GET /api/talleres/:id y GET /api/talleres/:id/asistencias).
-// PASO 5: formulario de inscripción (POST /api/asistencias).
 
 export default function DetalleTaller() {
   const router = useRouter();
@@ -21,14 +23,15 @@ export default function DetalleTaller() {
 
   const [nombre, setNombre] = useState('');
   const [boleta, setBoleta] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
   const [errorForm, setErrorForm] = useState('');
   const [exito, setExito] = useState('');
   const [enviando, setEnviando] = useState(false);
 
   useEffect(() => {
-    // En el primer render router.query todavía viene vacío: hay que esperar a router.isReady.
     if (!router.isReady) return;
-        // Si se llegó desde /perfil, la boleta y el nombre vienen en la URL (?boleta=...&nombre=...).
+    // Si se llegó desde /perfil, la boleta y el nombre vienen en la URL (?boleta=...&nombre=...).
     if (router.query.boleta) setBoleta(String(router.query.boleta));
     if (router.query.nombre) setNombre(String(router.query.nombre));
     cargar();
@@ -44,7 +47,6 @@ export default function DetalleTaller() {
     }
   }
 
-  // Lugares: se calculan con lo que ya está en el estado (cada vez que cambia, React vuelve a calcular).
   const ocupados = asistencias.length;
   const libres = taller ? Math.max(0, taller.cupo - ocupados) : 0;
   const lleno = taller !== null && libres === 0;
@@ -54,10 +56,13 @@ export default function DetalleTaller() {
     setErrorForm('');
     setExito('');
 
-    // El backend de esta semana no revisa cupo ni inscripciones repetidas: lo cuida el front.
-    const nombreLimpio = nombre.trim();
+    const nombreLimpio = nombre.trim().replace(/\s+/g, ' ');
     const boletaLimpia = boleta.trim();
-    if (!nombreLimpio) return setErrorForm('Escribe tu nombre.');
+    const correoLimpio = correo.trim();
+
+    // Validaciones del front: ninguna de estas manda peticiones al backend.
+    const errorNombre = validarNombre(nombreLimpio);
+    if (errorNombre) return setErrorForm(errorNombre);
     if (!validarBoleta(boletaLimpia)) return setErrorForm('La boleta debe tener 10 dígitos.');
     if (asistencias.some((a) => a.boleta === boletaLimpia)) {
       return setErrorForm('Esa boleta ya está inscrita en este taller.');
@@ -66,13 +71,36 @@ export default function DetalleTaller() {
 
     setEnviando(true);
     try {
-      await pedirJSON('/asistencias', {
-        method: 'POST',
-        body: JSON.stringify({ taller_id: id, nombre_alumno: nombreLimpio, boleta: boletaLimpia }),
-      });
-      setExito(`¡Listo! ${nombreLimpio} quedó inscrito(a) en el taller.`);
+      // 1) ¿Esa boleta ya tiene cuenta? Si no, se crea con los datos del formulario.
+      const cuenta = await buscarUsuarioPorBoleta(boletaLimpia);
+      let cuentaNueva = false;
+      if (!cuenta) {
+        if (!validarCorreo(correoLimpio)) {
+          return setErrorForm('Esta boleta aún no tiene cuenta: escribe un correo válido para crearla.');
+        }
+        if (!validarContrasena(contrasena)) {
+          return setErrorForm('Para crear la cuenta, la contraseña debe tener al menos 8 caracteres.');
+        }
+        await crearUsuario({
+          nombre: nombreLimpio,
+          correo: correoLimpio,
+          contrasena,
+          boleta: boletaLimpia,
+        });
+        cuentaNueva = true;
+      }
+
+      // 2) Se registra la inscripción.
+      await crearAsistencia({ taller_id: id, nombre_alumno: nombreLimpio, boleta: boletaLimpia });
+      setExito(
+        cuentaNueva
+          ? `¡Listo! Se creó la cuenta de ${nombreLimpio} y quedó inscrito(a) en el taller.`
+          : `¡Listo! ${nombreLimpio} quedó inscrito(a) en el taller.`
+      );
       setNombre('');
       setBoleta('');
+      setCorreo('');
+      setContrasena('');
       await cargar();
     } catch (err) {
       setErrorForm(err.message);
@@ -81,7 +109,7 @@ export default function DetalleTaller() {
     }
   }
 
-    if (errorCarga) {
+  if (errorCarga) {
     return (
       <main>
         <p className="error">{errorCarga}</p>
@@ -89,7 +117,6 @@ export default function DetalleTaller() {
       </main>
     );
   }
-
   if (!taller) return <main><p>Cargando taller…</p></main>;
 
   const porcentaje = Math.min(100, (ocupados / taller.cupo) * 100);
@@ -115,18 +142,35 @@ export default function DetalleTaller() {
         </p>
       </section>
 
-      {      <section className={estilos.panel}>
+      <section className={estilos.panel}>
         <h2>Inscribirme</h2>
         <form onSubmit={inscribir} className="formulario">
           <input placeholder="Nombre completo" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+          <small className={nombre.trim().length > NOMBRE_MAX ? 'error' : estilos.nota}>
+            {nombre.trim().length}/{NOMBRE_MAX} caracteres
+          </small>
           <input placeholder="Boleta (10 dígitos)" value={boleta} onChange={(e) => setBoleta(e.target.value)} />
+          <p className={estilos.nota}>Solo si es tu primera vez, para crear tu cuenta:</p>
+          <input
+            type="email"
+            placeholder="Correo"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
+          <input
+            type="password"
+            autoComplete="new-password"
+            placeholder="Contraseña (mínimo 8 caracteres)"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+          />
           <button type="submit" disabled={lleno || enviando}>
             {lleno ? 'Sin lugares' : enviando ? 'Inscribiendo…' : 'Inscribirme'}
           </button>
         </form>
         {errorForm && <p className="error">{errorForm}</p>}
         {exito && <p className={estilos.exito}>{exito}</p>}
-      </section>}
+      </section>
 
       <h2>Inscritos ({ocupados})</h2>
       {ocupados === 0 ? (

@@ -16,3 +16,19 @@ export function validarContrasena(contrasena) {
   if (typeof contrasena !== 'string') return false;
   return contrasena.length >= 8;
 }
+
+// --- Reglas del formulario de inscripción ---
+export const NOMBRE_MAX = 60;
+
+// Regresa el mensaje de error, o '' si el nombre es válido.
+export function validarNombre(nombre) {
+  const texto = typeof nombre === 'string' ? nombre.trim() : '';
+  if (!texto) return 'Escribe tu nombre.';
+  if (texto.length < 2) return 'El nombre es demasiado corto (mínimo 2 caracteres).';
+  if (texto.length > NOMBRE_MAX) return `El nombre es demasiado largo (máximo ${NOMBRE_MAX} caracteres).`;
+  if (/\d/.test(texto)) return 'El nombre no puede contener números.';
+  if (!/^\p{L}[\p{L} '’.-]*$/u.test(texto)) {
+    return 'El nombre solo puede tener letras, espacios, apóstrofos, puntos o guiones.';
+  }
+  return '';
+}

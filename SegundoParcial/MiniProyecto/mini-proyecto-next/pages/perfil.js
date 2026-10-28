@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { pedirJSON } from '../lib/api';
 import { formatearFecha } from '../lib/formato';
 import { validarBoleta } from '../lib/validaciones';
 import estilos from '../styles/Talleres.module.css';
+
 
 // /perfil — el alumno escribe su boleta y ve sus datos, sus talleres y los talleres con lugar.
 // Todavía no hay login (llega en la semana 10): por eso se busca por boleta.
@@ -19,12 +20,26 @@ export default function Perfil() {
   const [error, setError] = useState('');
   const [cargando, setCargando] = useState(false);
 
+    // Al abrir la página, se llena sola la última boleta buscada.
+  useEffect(() => {
+    try {
+      const guardada = localStorage.getItem('ultimaBoleta');
+      if (guardada) setBoleta(guardada);
+    } catch {
+    }
+  }, []);
+
   async function buscar(e) {
     e.preventDefault();
     setError('');
     setBuscada('');
     const b = boleta.trim();
     if (!validarBoleta(b)) return setError('La boleta debe tener 10 dígitos.');
+
+        try {
+      localStorage.setItem('ultimaBoleta', b);
+    } catch {
+    }
 
     setCargando(true);
     try {
